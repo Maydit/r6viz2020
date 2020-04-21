@@ -53,6 +53,24 @@ function buildPlot() {
   var yAxis = d3.axisLeft()
     .scale(yScale)
     .ticks(9);
+	
+	
+  svgFrame.append("text")             
+      .attr("transform",
+            "translate(" + (w/2) + " ," + 
+                           (h + padding + 20) + ")")
+      .style("text-anchor", "middle")
+	  .style("stroke", "white")
+      .text("Ash/Jager-ness");
+	  
+  svgFrame.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 0 - padding - 40)
+      .attr("x",0 - (h / 2))
+      .attr("dy", "1em")
+      .style("text-anchor", "middle")
+	  .style("stroke", "white")
+      .text("Thermite/Valk-ness");    
 
   /* ===== dots ===== */
 
@@ -194,12 +212,14 @@ function buildPlot() {
       .attr('class', 'x_axis')
       .attr('transform', 'translate(0,' + (h - padding) + ')')
       .style('font-size', '14px')
+	  .style('stroke','white')
       .call(xAxis);
 
     svgFrame.append('g')
       .attr('class', 'y_axis')
       .attr('transform', 'translate(' + padding + ',0)')
       .style('font-size', '12px')
+	  .style('stroke','white')
       .call(yAxis);
   }
 
