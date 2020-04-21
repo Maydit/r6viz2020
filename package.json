@@ -1,0 +1,25 @@
+{
+  "name": "r6viz2020",
+  "version": "1.0.0",
+  "description": "R6 Playstyle visualization",
+  "main": "site/script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Maydit/r6viz2020.git"
+  },
+  "keywords": [
+    "rainbow",
+    "six",
+    "r6",
+    "stats"
+  ],
+  "author": "Maydit",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Maydit/r6viz2020/issues"
+  },
+  "homepage": "https://github.com/Maydit/r6viz2020#readme"
+}
