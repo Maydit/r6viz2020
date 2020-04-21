@@ -112,6 +112,8 @@ function buildPlot() {
 
   /* ===== apend/update axes ===== */
 
+  appendAxes();
+
   function appendAxes() {
     svgFrame.append('g')
       .attr('class', 'x_axis')
