@@ -24,7 +24,7 @@ totss = sum(pdist(dataset)**2)/dataset.shape[0]       # The total sum of squares
 betweenss = totss - tot_withinss          # The between-cluster sum of squares
 
 ##### plots #####
-kIdx = 11        # K=10
+kIdx = 7        # K=8
 mrk = 'os^p<dvh8>+x.'
 
 # elbow curve
