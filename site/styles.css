@@ -1,5 +1,7 @@
 body {
-    font-family: Arial, sans-serif
+    font-family: Arial, sans-serif;
+	background-color: #121212;
+	color: #FFFFFF;
   }
 
   
@@ -32,6 +34,10 @@ svg {
     outline: none;
     height: 30px;
     width: 110px;
+  }
+  
+  text {
+	  color:white;
   }
   
   /* Split the screen in half */
@@ -70,4 +76,28 @@ svg {
   left: 80%;
   transform: translate(-50%, -50%);
   text-align: right;
+}
+
+x_axis line{
+	stroke: white;
+}
+
+.x_axis path{
+	stroke: white;
+}
+
+.x_axis text{
+	stroke: white;
+}
+
+y_axis line{
+	stroke: white;
+}
+
+.y_axis path{
+	stroke: white;
+}
+
+.y_axis text{
+	stroke: white;
 }

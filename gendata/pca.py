@@ -11,6 +11,31 @@ pca = PCA(n_components = 2)
 pca.fit(dataset)
 X_pca = pca.transform(dataset)
 
+#with np.printoptions(precision=3, suppress=True):
+#	print(pca.components_)
+"""	
+["doc","twitch","ash","thermite","blitz","buck","hibana","kapkan","pulse","castle","
+rook","bandit","smoke","frost","valkyrie","tachanka","glaz","fuze","sledge","montagne",
+"mute","echo","thatcher","capitao","iq","blackbeard","jager","caveira","jackal","mira",
+"lesion","ying","ela","dokkaebi","vigil","zofia","finka","lion","alibi","maestro",
+"maverick","clash","nomad","kaid","mozzie","gridlock","warden","nakk","amaru","goyo"];
+Eigenvectors:
+[-0.072  0.093  0.76  -0.123 -0.044 -0.015 -0.053 -0.053  0.084 -0.031
+  -0.054  0.138 -0.06  -0.055  0.013 -0.014 -0.019 -0.031  0.043 -0.058
+  -0.027 -0.056 -0.126  0.012 -0.02  -0.062  0.509 -0.    -0.106 -0.055
+  -0.14  -0.016  0.047 -0.017  0.047 -0.012 -0.07  -0.032 -0.012 -0.06
+  -0.035 -0.018 -0.056 -0.039 -0.056 -0.028 -0.004 -0.007 -0.005 -0.006]
+  ==Twitch, ash, -therm, -thatch, bandit, blackbeard
+  
+[-0.139 -0.412  0.204  0.135  0.063  0.07   0.063  0.043  0.51   0.061
+   0.073  0.107 -0.048  0.08   0.116  0.02   0.082  0.051  0.222  0.039
+  -0.044  0.006  0.031  0.098 -0.182  0.195 -0.368  0.    -0.067  0.043
+  -0.135  0.016 -0.028  0.011 -0.175 -0.25  -0.05  -0.018 -0.017 -0.08
+  -0.041 -0.    -0.112 -0.03  -0.093 -0.028 -0.003 -0.004 -0.01  -0.004]
+  ==-twitch, ash, thermite, valk, capitao, -vigil, -nomad
+  """
+  
+
 np.random.seed((1000,2000)) #random random seed
 K = range(1,20) # k's for k means
 KM = [kmeans(dataset,k) for k in K]
