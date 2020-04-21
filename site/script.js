@@ -3,6 +3,10 @@ var d3;
 
 var colors = ["#a6cee3","#1f78b4","#b2df8a","#33a02c","#fb9a99","#e31a1c","#fdbf6f","#ff7f00","#cab2d6","#6a3d9a","#ffff99","#b15928"];
 
+d3.csv('playtimes.csv', function(dataset) {
+  playtime_data = dataset;
+});
+
 d3.csv('out.csv', function(dataset) {
   data = dataset;
   buildPlot();
@@ -99,7 +103,7 @@ function buildPlot() {
       })
 
     dots = d3.selectAll('.userDot');
-    
+
     removeDot()
   }
 
@@ -107,31 +111,10 @@ function buildPlot() {
 
   function removeDot() {
     dots.on('click', function(d) {
-      
-    data.splice(data.indexOf(d), 1);
-  
-    updateScales();
-      
-    d3.selectAll('circle')
-      .transition()
-      .duration(500)
-      .attr('cx', function(d) {
-        return xScale(d.x);
-      })
-      .attr('cy', function(d) {
-        return yScale(d.y);
-      })
-      
-      d3.selectAll('circle')
-      .data(data, key)
-      .exit()
-      .transition()
-      .duration(500)
-      .attr('r', 2)
-      .attr('fill', 'gray')
-      .remove();    
-    })  
-    
+
+    d3.selectAll('.uiPanel').select('text').text(playtime_data[data.indexOf(d)].name);
+    })
+
   }
 
   /* ===== apend/update axes ===== */
@@ -193,6 +176,11 @@ function buildPlot() {
     .attr('id', 'update')
     .text('add dot');
 
+  var dot_info_output = d3.select('.uiPanel')
+    .append('text')
+    .text('click on player')
+    .attr('test');
+
   /* ===== new data button (ON CLICK) ===== */
 
   d3.select('#update').on('click', function() {
@@ -201,15 +189,15 @@ function buildPlot() {
       document.getElementById('inputPlatform').value === ''
     )
       return;
-	
+
 	//calculate x & y coords
 	var uname = document.getElementById('inputUsername').value;
 	var platform = document.getElementById('inputPlatform').value;
 	console.log(uname);
 	console.log(platform);
-	
+
 	var str = 'https://r6.tracker.network/profile/' + platform + '/' + uname + '/operators';
-	
+
 	//let $ = cheerio.load(str);
 
     var newKey =
