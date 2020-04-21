@@ -59,14 +59,8 @@ function buildPlot() {
       return colors[d.color];
     });
 
-  appendAxes();
-  removeDot();
-
   function addNewDot() {
     dots = svgFrame.selectAll('circle').data(data, key);
-
-    updateScales();
-
     dots.enter()
       .append('circle')
       .attr('cx', function(d) {
@@ -76,7 +70,7 @@ function buildPlot() {
         return yScale(d.y);
       })
       .attr('class', 'userDot')
-      .attr('r', 10)
+      .attr('r', 5)
       .attr('fill', 'darkblue')
       .attr('opacity', 0)
       .transition()
@@ -85,7 +79,7 @@ function buildPlot() {
       .attr('opacity', 1)
       .transition()
       .duration(500)
-      .attr('r', 10)
+      .attr('r', 5)
       .attr('fill', 'steelblue');
 
     dots.merge(dots)
@@ -97,76 +91,7 @@ function buildPlot() {
       .attr('cy', function(d) {
         return yScale(d.y);
       })
-
     dots = d3.selectAll('.userDot');
-    
-    removeDot()
-  }
-
-  /* ===== remove dots ===== */
-
-  function removeDot() {
-    dots.on('click', function(d) {
-      
-    data.splice(data.indexOf(d), 1);
-  
-    updateScales();
-      
-    d3.selectAll('circle')
-      .transition()
-      .duration(500)
-      .attr('cx', function(d) {
-        return xScale(d.x);
-      })
-      .attr('cy', function(d) {
-        return yScale(d.y);
-      })
-      
-      d3.selectAll('circle')
-      .data(data, key)
-      .exit()
-      .transition()
-      .duration(500)
-      .attr('r', 2)
-      .attr('fill', 'gray')
-      .remove();    
-    })  
-    
-  }
-
-  /* ===== apend/update axes ===== */
-
-  function appendAxes() {
-    svgFrame.append('g')
-      .attr('class', 'x_axis')
-      .attr('transform', 'translate(0,' + (h - padding) + ')')
-      .style('font-size', '14px')
-      .call(xAxis);
-
-    svgFrame.append('g')
-      .attr('class', 'y_axis')
-      .attr('transform', 'translate(' + padding + ',0)')
-      .style('font-size', '12px')
-      .call(yAxis);
-  }
-
-  function updateScales() {
-    xScale
-      .domain([0,d3.max(data, function(d) {return parseFloat(d.age);})])
-      .nice();
-    yScale
-      .domain([0,d3.max(data, function(d) {return parseFloat(d.income);})])
-      .nice();
-
-    svgFrame.select('.x_axis')
-      .transition()
-      .duration(500)
-      .call(xAxis);
-
-    svgFrame.select('.y_axis')
-      .transition()
-      .duration(500)
-      .call(yAxis);
   }
 
   /* ===== inputs and buttons ===== */
@@ -193,7 +118,7 @@ function buildPlot() {
     .attr('id', 'update')
     .text('add dot');
 
-  /* ===== new data button (ON CLICK) ===== */
+  /* ===== new data button ===== */
 
   d3.select('#update').on('click', function() {
     if (
@@ -207,10 +132,6 @@ function buildPlot() {
 	var platform = document.getElementById('inputPlatform').value;
 	console.log(uname);
 	console.log(platform);
-	
-	var str = 'https://r6.tracker.network/profile/' + platform + '/' + uname + '/operators';
-	
-	//let $ = cheerio.load(str);
 
     var newKey =
       data.length === 0 ? 1 : parseFloat(data[data.length - 1].key) + 1;

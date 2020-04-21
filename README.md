@@ -4,4 +4,5 @@ R6 Playstyle visualization
 To run:
 
 npm i -g http-server
+
 http-server site/
