@@ -1,8 +1,10 @@
 # r6viz2020
 R6 Playstyle visualization
 
-To run:
+To regenerate the data:
 
-npm i -g http-server
+npm run gen
 
-http-server site/
+To run the site:
+
+rpm run start
