@@ -1,10 +1,20 @@
 var data;
 var d3;
 
+var alltimes = [];
 var colors = ['#7F3C8D','#11A579','#3969AC','#F2B701','#E73F74','#80BA5A','#E68310','#008695','#CF1C90','#f97b72','#4b4b8f','#A5AA99'];
+var operators = ["doc","twitch","ash","thermite","blitz","buck","hibana","kapkan","pulse","castle","rook","bandit","smoke","frost","valkyrie","tachanka","glaz","fuze","sledge","montagne","mute","echo","thatcher","capitao","iq","blackbeard","jager","caveira","jackal","mira","lesion","ying","ela","dokkaebi","vigil","zofia","finka","lion","alibi","maestro","maverick","clash","nomad","kaid","mozzie","gridlock","warden","nakk","amaru","goyo"];
+var tableStart = [];
+for(i = 0; i < operators.length; i++){
+  tableStart.push([operators[i], "0:00"]);
+}
 
 d3.csv('playtimes.csv', function(dataset) {
   playtime_data = dataset;
+  for(i = 0; i < dataset.length; i++){
+    alltimes += [d3.values(dataset[i])];
+  }
+
 });
 
 d3.csv('out.csv', function(dataset) {
@@ -109,10 +119,49 @@ function buildPlot() {
   function removeDot() {
     dots.on('click', function(d) {
 
-    d3.selectAll('.uiPanel').select('text').text(playtime_data[data.indexOf(d)].name);
-    })
+    var index = data.indexOf(d)
 
-  }
+    d3.selectAll('.uiPanel').select('text').text(playtime_data[data.indexOf(d)].name);
+
+
+
+    console.log(alltimes)
+    console.log(alltimes[50])
+    var newData = [];
+    for(i = 0; i < operators.length; i++){
+      newData.push([operators[i], alltimes[data.indexOf(d)][i]]);
+    }
+
+
+
+    console.log(newData);
+    var header = d3.selectAll('.uiPanel').select('table').append("thead").append("tr");
+    header
+           .selectAll("th")
+           .data(["operator", "time"])
+           .enter()
+           .append("th")
+           .text(function(d) { return d; });
+   var tablebody = table.append("tbody");
+   rows = tablebody
+           .selectAll("tr")
+           .data(newData)
+           .enter()
+           .append("tr");
+   // We built the rows using the nested array - now each row has its own array.
+   cells = rows.selectAll("td")
+       // each row has data associated; we get it and enter it for the cells.
+           .data(function(d) {
+
+               return d;
+           })
+           .enter()
+           .append("td")
+           .text(function(d) {
+               return d;
+           });
+
+  })}
 
   /* ===== apend/update axes ===== */
 
@@ -159,7 +208,7 @@ function buildPlot() {
 	.data(["8 Colors", "4 Colors"]).enter()
 	.append('option')
 	.text(function(d) { return d;})
-	.attr("value", function (d) { return d; }); 
+	.attr("value", function (d) { return d; });
 
   var nameInput = d3.select('.uiPanel')
     .append('input')
@@ -187,7 +236,34 @@ function buildPlot() {
     .append('text')
     .text('click on player')
     .attr('test');
-	
+
+  var table = d3.select(".uiPanel").append("table");
+    var header = table.append("thead").append("tr");
+    header
+           .selectAll("th")
+           .data(["operator", "time"])
+           .enter()
+           .append("th")
+           .text(function(d) { return d; });
+   var tablebody = table.append("tbody");
+   rows = tablebody
+           .selectAll("tr")
+           .data(tableStart)
+           .enter()
+           .append("tr");
+   // We built the rows using the nested array - now each row has its own array.
+   cells = rows.selectAll("td")
+       // each row has data associated; we get it and enter it for the cells.
+           .data(function(d) {
+
+               return d;
+           })
+           .enter()
+           .append("td")
+           .text(function(d) {
+               return d;
+           });
+
   /* ===== new data button (ON CLICK) ===== */
 
   var colorselected = 0;
