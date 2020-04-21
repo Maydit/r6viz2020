@@ -63,6 +63,10 @@ function buildPlot() {
       return colors[d.color];
     });
 
+
+    appendAxes();
+    removeDot();
+
   function addNewDot() {
     dots = svgFrame.selectAll('circle').data(data, key);
     dots.enter()
@@ -111,8 +115,6 @@ function buildPlot() {
   }
 
   /* ===== apend/update axes ===== */
-
-  appendAxes();
 
   function appendAxes() {
     svgFrame.append('g')
