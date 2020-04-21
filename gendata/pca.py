@@ -6,7 +6,7 @@ from sklearn.decomposition import PCA
 from scipy.spatial.distance import cdist,pdist
 from scipy.cluster.vq import vq, kmeans, whiten
 
-dataset = np.genfromtxt('data2.csv', delimiter=',', skip_header=1)
+dataset = np.genfromtxt('gendata/data2.csv', delimiter=',', skip_header=1)
 pca = PCA(n_components = 2)
 pca.fit(dataset)
 X_pca = pca.transform(dataset)
@@ -58,6 +58,6 @@ with_color = np.append(X_pca, colors, 1)
 keys = np.asarray(range(1,with_color.shape[0]+1))[:,None]
 with_keys = np.append(keys, with_color, 1)
 
-with open('out.csv', 'wb') as f:
+with open('site/out.csv', 'wb') as f:
 	f.write(b'key,x,y,color\n')
 	np.savetxt(f, with_keys, delimiter=",", fmt="%d,%1.9f,%1.9f,%d")

@@ -4,7 +4,8 @@
   "description": "R6 Playstyle visualization",
   "main": "site/",
   "scripts": {
-    "start": "http-server site/"
+    "start": "http-server site/",
+	"gen": "python gendata/pca.py"
   },
   "repository": {
     "type": "git",
