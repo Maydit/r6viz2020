@@ -3,6 +3,10 @@ var d3;
 
 var colors = ['#7F3C8D','#11A579','#3969AC','#F2B701','#E73F74','#80BA5A','#E68310','#008695','#CF1C90','#f97b72','#4b4b8f','#A5AA99'];
 
+d3.csv('playtimes.csv', function(dataset) {
+  playtime_data = dataset;
+});
+
 d3.csv('out.csv', function(dataset) {
   data = dataset;
   buildPlot();
@@ -92,6 +96,55 @@ function buildPlot() {
         return yScale(d.y);
       })
     dots = d3.selectAll('.userDot');
+
+    removeDot()
+  }
+
+  /* ===== remove dots ===== */
+
+  function removeDot() {
+    dots.on('click', function(d) {
+
+    d3.selectAll('.uiPanel').select('text').text(playtime_data[data.indexOf(d)].name);
+    })
+
+  }
+
+  /* ===== apend/update axes ===== */
+
+  appendAxes();
+
+  function appendAxes() {
+    svgFrame.append('g')
+      .attr('class', 'x_axis')
+      .attr('transform', 'translate(0,' + (h - padding) + ')')
+      .style('font-size', '14px')
+      .call(xAxis);
+
+    svgFrame.append('g')
+      .attr('class', 'y_axis')
+      .attr('transform', 'translate(' + padding + ',0)')
+      .style('font-size', '12px')
+      .call(yAxis);
+  }
+
+  function updateScales() {
+    xScale
+      .domain([0,d3.max(data, function(d) {return parseFloat(d.age);})])
+      .nice();
+    yScale
+      .domain([0,d3.max(data, function(d) {return parseFloat(d.income);})])
+      .nice();
+
+    svgFrame.select('.x_axis')
+      .transition()
+      .duration(500)
+      .call(xAxis);
+
+    svgFrame.select('.y_axis')
+      .transition()
+      .duration(500)
+      .call(yAxis);
   }
 
   /* ===== inputs and buttons ===== */
@@ -118,7 +171,12 @@ function buildPlot() {
     .attr('id', 'update')
     .text('add dot');
 
-  /* ===== new data button ===== */
+  var dot_info_output = d3.select('.uiPanel')
+    .append('text')
+    .text('click on player')
+    .attr('test');
+
+  /* ===== new data button (ON CLICK) ===== */
 
   d3.select('#update').on('click', function() {
     if (
@@ -126,12 +184,16 @@ function buildPlot() {
       document.getElementById('inputPlatform').value === ''
     )
       return;
-	
+
 	//calculate x & y coords
 	var uname = document.getElementById('inputUsername').value;
 	var platform = document.getElementById('inputPlatform').value;
 	console.log(uname);
 	console.log(platform);
+
+	var str = 'https://r6.tracker.network/profile/' + platform + '/' + uname + '/operators';
+
+	//let $ = cheerio.load(str);
 
     var newKey =
       data.length === 0 ? 1 : parseFloat(data[data.length - 1].key) + 1;
