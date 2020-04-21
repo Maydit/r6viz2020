@@ -188,6 +188,11 @@ function buildPlot() {
 	.text(function(d) { return d;})
 	.attr("value", function (d) { return d; }); 
 
+  var dot_info_output = d3.select('.uiPanel')
+    .append('text')
+    .text('click on player')
+    .attr('test');
+	
   /* ===== new data button (ON CLICK) ===== */
 
   var colorselected = 0;
