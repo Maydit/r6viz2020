@@ -7,4 +7,4 @@ npm run gen
 
 To run the site:
 
-rpm run start
+npm run start
