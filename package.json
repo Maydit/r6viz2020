@@ -2,9 +2,10 @@
   "name": "r6viz2020",
   "version": "1.0.0",
   "description": "R6 Playstyle visualization",
-  "main": "site/script.js",
+  "main": "site/",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "http-server site/",
+	"gen": "python gendata/pca.py"
   },
   "repository": {
     "type": "git",
@@ -13,6 +14,7 @@
   "keywords": [
     "rainbow",
     "six",
+	"siege",
     "r6",
     "stats"
   ],
@@ -21,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/Maydit/r6viz2020/issues"
   },
-  "homepage": "https://github.com/Maydit/r6viz2020#readme"
+  "homepage": "https://github.com/Maydit/r6viz2020#readme",
+  "dependencies": {
+    "http-server": "^0.12.1"
+  }
 }

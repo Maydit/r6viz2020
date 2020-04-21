@@ -63,14 +63,8 @@ function buildPlot() {
       return colors[d.color];
     });
 
-  appendAxes();
-  removeDot();
-
   function addNewDot() {
     dots = svgFrame.selectAll('circle').data(data, key);
-
-    updateScales();
-
     dots.enter()
       .append('circle')
       .attr('cx', function(d) {
@@ -80,7 +74,7 @@ function buildPlot() {
         return yScale(d.y);
       })
       .attr('class', 'userDot')
-      .attr('r', 10)
+      .attr('r', 5)
       .attr('fill', 'darkblue')
       .attr('opacity', 0)
       .transition()
@@ -89,7 +83,7 @@ function buildPlot() {
       .attr('opacity', 1)
       .transition()
       .duration(500)
-      .attr('r', 10)
+      .attr('r', 5)
       .attr('fill', 'steelblue');
 
     dots.merge(dots)
@@ -101,7 +95,6 @@ function buildPlot() {
       .attr('cy', function(d) {
         return yScale(d.y);
       })
-
     dots = d3.selectAll('.userDot');
 
     removeDot()
