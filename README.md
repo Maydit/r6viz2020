@@ -1,6 +1,10 @@
 # r6viz2020
 R6 Playstyle visualization
 
+First:
+
+npm install
+
 To regenerate the data:
 
 npm run gen
