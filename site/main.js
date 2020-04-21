@@ -204,7 +204,7 @@ function buildPlot() {
       key: newKey,
       x: calcx,
       y: calcy,
-	  color: '#000000'
+      color: '#000000'
     };
 
     data.push(newDataPoint);
