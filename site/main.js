@@ -151,15 +151,10 @@ function buildPlot() {
 
   /* ===== inputs and buttons ===== */
 
-  var groupings = d3.select('.uiPanel')
-    .append('select')
-	.attr('id', 'groupings')
-	.attr('name', 'name-list')
-	.selectAll('option')
-	.data(["8 Colors", "4 Colors"]).enter()
-	.append('option')
-	.text(function(d) { return d;})
-	.attr("value", function (d) { return d; }); 
+  var explain = d3.select('.uiPanel')
+    .append('text')
+	.text('Not yet implemented: put yourself on the chart')
+	.style('font-size', '10px');
 
   var nameInput = d3.select('.uiPanel')
     .append('input')
@@ -182,12 +177,17 @@ function buildPlot() {
     .append('button')
     .attr('id', 'update')
     .text('add dot');
-
-  var dot_info_output = d3.select('.uiPanel')
-    .append('text')
-    .text('click on player')
-    .attr('test');
 	
+  var groupings = d3.select('.uiPanel')
+    .append('select')
+	.attr('id', 'groupings')
+	.attr('name', 'name-list')
+	.selectAll('option')
+	.data(["8 Colors", "4 Colors"]).enter()
+	.append('option')
+	.text(function(d) { return d;})
+	.attr("value", function (d) { return d; }); 
+
   /* ===== new data button (ON CLICK) ===== */
 
   var colorselected = 0;
