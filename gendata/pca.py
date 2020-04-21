@@ -57,7 +57,9 @@ colors = np.asarray(cIdx[kIdx])[:,None]
 with_color = np.append(X_pca, colors, 1)
 keys = np.asarray(range(1,with_color.shape[0]+1))[:,None]
 with_keys = np.append(keys, with_color, 1)
+colors2 = np.asarray(cIdx[3])[:,None]
+with_colors2 = np.append(with_keys, colors2, 1)
 
 with open('site/out.csv', 'wb') as f:
-	f.write(b'key,x,y,color\n')
-	np.savetxt(f, with_keys, delimiter=",", fmt="%d,%1.9f,%1.9f,%d")
+	f.write(b'key,x,y,color1,color2\n')
+	np.savetxt(f, with_colors2, delimiter=",", fmt="%d,%1.9f,%1.9f,%d,%d")

@@ -60,7 +60,7 @@ function buildPlot() {
     })
     .attr('r', 5)
     .attr('fill', function(d) {
-      return colors[d.color];
+      return colors[d.color1];
     });
 
 
@@ -151,6 +151,16 @@ function buildPlot() {
 
   /* ===== inputs and buttons ===== */
 
+  var groupings = d3.select('.uiPanel')
+    .append('select')
+	.attr('id', 'groupings')
+	.attr('name', 'name-list')
+	.selectAll('option')
+	.data(["8 Colors", "4 Colors"]).enter()
+	.append('option')
+	.text(function(d) { return d;})
+	.attr("value", function (d) { return d; }); 
+
   var nameInput = d3.select('.uiPanel')
     .append('input')
     .attr('id', 'inputUsername')
@@ -177,8 +187,23 @@ function buildPlot() {
     .append('text')
     .text('click on player')
     .attr('test');
-
+	
   /* ===== new data button (ON CLICK) ===== */
+
+  var colorselected = 0;
+
+  d3.select('#groupings').on('change', function() {
+	  colorselected = Math.abs(colorselected - 1);
+	  svgFrame.selectAll("circle")
+	    .data(data, key)
+		.transition()
+		.duration(1000)
+		.attr("fill", function(d) {
+		  var clrs = [d.color1, d.color2];
+		  console.log(colors[clrs[colorselected]]);
+	      return colors[clrs[colorselected]];
+		});
+  });
 
   d3.select('#update').on('click', function() {
     if (
@@ -192,10 +217,6 @@ function buildPlot() {
 	var platform = document.getElementById('inputPlatform').value;
 	console.log(uname);
 	console.log(platform);
-
-	var str = 'https://r6.tracker.network/profile/' + platform + '/' + uname + '/operators';
-
-	//let $ = cheerio.load(str);
 
     var newKey =
       data.length === 0 ? 1 : parseFloat(data[data.length - 1].key) + 1;
