@@ -124,7 +124,7 @@ async def run(names, platform):
 
 
 async def run_first_row():
-    auth = api.Auth("bradfordstone@msn.com", "Ubt0tt0t")
+    auth = api.Auth("email", "password")
     firstrow = [""]
     player = await auth.get_player("billy_yoyo", api.Platforms.UPLAY)
     operators = await player.get_all_operators()
